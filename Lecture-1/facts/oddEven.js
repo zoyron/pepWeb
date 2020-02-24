@@ -8,8 +8,6 @@ const arr1 = arr.map(x => {
 });
 
 console.log(arr1);
-// for(let i = 0;i<10;i++)
-//   console.log(arr1[i]);
 
 const arr2 = arr1.filter(x => {
   let i;
