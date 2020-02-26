@@ -1,18 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-
-module.exports.myFunc = function() {
-  let src = arguments[0];
-  let mode = arguments[1];
-  if(mode == "-t")
-    viewAsTree(src, "");
-  else if(mode == "-f")
-    viewAsFlatFile(src);
-  else
-    console.log("Wrong mode entered");
-}
-
-function viewAsTree(src, emp) {
+let empStr = "";
+function displayList(src, emp) {
   let ans = fs.lstatSync(src).isDirectory();
   if(ans == false) {
     let newSrc = src.split('/');
@@ -24,11 +13,9 @@ function viewAsTree(src, emp) {
     let children = fs.readdirSync(src);
     for(let i = 0;i<children.length;i++) {
       let newPath = path.join(src,children[i]);
-      viewAsTree(newPath,emp+ "\t");
+      displayList(newPath,emp+ "\t");
     }
   }
 }
 
-function viewAsFlatFile() {
-  console.log("view as flat file is working");
-}
+displayList('/home/teddy/pepCoding/web/Lecture-3/src/d10', empStr);
