@@ -3,19 +3,22 @@ const path = require('path');
 
 function treefy(src) {
   let tempObj = {};
+  tempObj.isFile = false;
   let ans = fs.lstatSync(src).isDirectory();
   if(ans == false) {
-    tempObj[path.basename(src)] = "temp data";
+    tempObj.fileName = path.basename(src);
+    tempObj.fileData = "temp data";
+    tempObj.isFile = true;
   }
   else {
     let tempChildren = fs.readdirSync(src);
-    tempObj.children = [];
     tempObj.folderName = path.basename(src);
+    tempObj.children = [];
     for(let i = 0;i<tempChildren.length;i++) {
       tempObj.children.push(treefy(path.join(src,tempChildren[i])));
     }
   }
-  // console.log(tempObj);
+  console.log(tempObj);
   return tempObj;
 }
 
@@ -31,6 +34,7 @@ function displayTreefy(rt) {
   }
 }
 
-let root = treefy('/home/teddy/pepCoding/web/Lecture-3/src/d10');
-//console.log(root);
-displayTreefy(root);
+let root;
+module.exports.root = treefy('/home/teddy/pepCoding/web/Lecture-3/src/d10');
+// console.log(root);
+// displayTreefy(root);
